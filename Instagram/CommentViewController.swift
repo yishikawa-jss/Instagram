@@ -24,10 +24,10 @@ class CommentViewController: UIViewController {
         
         if textField.text != "" {
             
-            // 画像と投稿データの保存場所を定義する
+            // コメントデータの保存場所を定義する
             let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
             
-            // FireStoreに投稿データを保存する
+            // FireStoreにデータを保存する
             let name = Auth.auth().currentUser?.displayName
             postRef.updateData([
                 "comments": FieldValue.arrayUnion([name! + ": " + self.textField.text!])
@@ -36,16 +36,12 @@ class CommentViewController: UIViewController {
             SVProgressHUD.showSuccess(withStatus: "コメントを投稿しました")
             // 投稿処理が完了したので先頭画面に戻る
             UIApplication.shared.windows.first{ $0.isKeyWindow }?.rootViewController?.dismiss(animated: true, completion: nil)
-        }else {
+        } else {
             
             SVProgressHUD.showError(withStatus: "コメントを入力してください")
             
         }
-        
-        
-        
-        
-        
+
     }
     
     //キャンセルボタン
